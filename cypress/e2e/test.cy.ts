@@ -1,7 +1,7 @@
 /* @owner: srdjan.stojanovic@yahoo.com*/
 
 import { itemData, site, testAccountData, testUserData } from "../fixtures/test";
-import { addItemToCard, cardPage, fillSignUpForm, homePage, ifUserExistsCheck, logIn, navBar, searchItem, singUpPage, userLogedInCheck } from "../pages/test";
+import { addItemToCard, cardPage, fillSignUpForm, homePage, ifUserExistsCheck, incorrectLogIn, logIn, navBar, searchItem, singUpPage, userLoggedInCheck } from "../pages/test";
 
 
 export { };
@@ -13,6 +13,7 @@ context('Cypress test', () => {
 
     it('User: Register as a new user and login', () => {
         homePage.signUp().click();
+        incorrectLogIn(testUserData.email, testUserData.wrongPassword)
         singUpPage.registerLink().click();
         fillSignUpForm(
             testUserData.firstName,
@@ -29,10 +30,10 @@ context('Cypress test', () => {
         );
         singUpPage.register().click();
         ifUserExistsCheck();
-        userLogedInCheck();
+        userLoggedInCheck();
     });
 
-    it('Search: Search and ﬁlter for products', () => {
+    it('Search: Search and filter for products', () => {
         homePage.hammerCheckBox().click();
         homePage.productName().should('have.length', 7);
         searchItem(itemData.thorHammer);

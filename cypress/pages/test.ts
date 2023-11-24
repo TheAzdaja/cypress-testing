@@ -25,7 +25,10 @@ export const singUpPage = {
     password: () => cy.get('[data-test="password"]'),
     register: () => cy.get('[data-test="register-submit"]'),
     logIn: () => cy.get('[data-test="login-submit"]'),
-    errorMessage: () => cy.get('[data-test="register-error"]')
+    errorMessage: () => cy.get('[data-test="register-error"]'),
+    errorEmailMessage: () => cy.get('[data-test="email-error"]'),
+    errorPasswordMessage: () => cy.get('[data-test="password-error"]'),
+    loginErrorMessage: () => cy.get('[data-test="login-error"]'),
 };
 
 export const productPage = {
@@ -106,7 +109,19 @@ export function logIn(email: string, password: string) {
     singUpPage.logIn().click();
 }
 
-export function userLogedInCheck() {
+export function incorrectLogIn(email: string, wrongPassword: string) {
+    singUpPage.logIn().click();
+    singUpPage.errorEmailMessage().should('be.visible');
+    singUpPage.errorPasswordMessage().should('be.visible');
+    singUpPage.email().type(email);
+    singUpPage.password().type(wrongPassword);
+    singUpPage.logIn().click();
+    singUpPage.loginErrorMessage().should('be.visible');
+    singUpPage.email().clear();
+    singUpPage.password().clear();
+}
+
+export function userLoggedInCheck() {
     userPage.titlePage().should('be.visible');
     userPage.favorites().should('be.visible');
     userPage.profile().should('be.visible');

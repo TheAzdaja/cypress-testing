@@ -8,8 +8,9 @@ export const testUserData = {
     state: 'CA',
     country: 'RS',
     phone: '06012345678',
-    email: 'srdjan@local212.com',
-    password: 'password1234!'
+    email: 'srdjan@local21121212.com',
+    password: 'password1234!',
+    wrongPassword: '213112'
 }
 
 export const testAccountData = {
